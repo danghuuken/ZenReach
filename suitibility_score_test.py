@@ -46,7 +46,13 @@ class SuitibilityScoreTest(unittest.TestCase):
 	
 	# Test of a count of number of vowels in a customers name
 	def test_count_number_of_vowels(self):
-		self.fail('Finish the test')
+		
+		self.assertEqual(magic_sauce.count_vowels("COOEEING"), 6)
+		self.assertEqual(magic_sauce.count_vowels("HellO"), 2)
+		self.assertEqual(magic_sauce.count_vowels("SYMPHYSY"), 0)
+		self.assertEqual(magic_sauce.count_vowels(""), 0)
+		self.assertEqual(magic_sauce.count_vowels(None), None)
+		self.assertEqual(magic_sauce.count_vowels("Wonderful World!@$%$"), 3)
 
 	# Test of the number of consonants in the customer's name
 	def test_number_of_consonants(self):
