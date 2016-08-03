@@ -1,10 +1,15 @@
 import unittest
+import magic_sauce
+import os
 
 # Set of test to test the functionality of the sutibility score
 class SuitibilityScoreTest(unittest.TestCase):
 	def setUp(self):
-		# Set up the input file. Read the test file of names and then run our tests on them
-		pass
+		test_input_file_dir = os.path.join(os.getcwd(), "TestInputFiles")
+		self.simple_input = os.path.join(test_input_file_dir, "simple_input.txt")
+		self.test_case = magic_sauce.seperate_test_cases(self.simple_input)[0]
+		self.customers = magic_sauce.get_customers(self.test_case)
+		self.products = magic_sauce.get_products(self.test_case)		
 
 	def tearDown(self):
 		# Close any connections to our test file.
@@ -12,11 +17,32 @@ class SuitibilityScoreTest(unittest.TestCase):
 
 	# Test to count the number of letters in a word
 	def test_count_number_of_letters(self):
-		self.fail('Finish the test')
+
+		self.assertEqual(magic_sauce.character_count("Hello"), 5)
+		self.assertEqual(magic_sauce.character_count("1Hello"), 6)
+		self.assertEqual(magic_sauce.character_count("Hello 2"), 6)
+		self.assertEqual(magic_sauce.character_count("Hello % ^ &"), 8)
+		self.assertEqual(magic_sauce.character_count("   "), 0)
+		self.assertEqual(magic_sauce.character_count(None), None)
 
 	# Determines if a word is Odd or Even 
 	def test_is_number_of_letters_odd_or_even(self):
-		self.fail('Finish the test')
+		
+		self.assertEqual(magic_sauce.is_even("Hello"), False)
+		self.assertEqual(magic_sauce.is_even("1Hello"), True)
+		self.assertEqual(magic_sauce.is_even("Hello 2"), True)
+		self.assertEqual(magic_sauce.is_even("Hello % ^ &"), True)
+		self.assertEqual(magic_sauce.is_even("\n Hello"), False)
+		self.assertEqual(magic_sauce.is_even("   "), True)
+		self.assertEqual(magic_sauce.is_even(None), None)
+
+		self.assertEqual(magic_sauce.is_odd("Hello"), True)
+		self.assertEqual(magic_sauce.is_odd("1Hello"), False)
+		self.assertEqual(magic_sauce.is_odd("Hello 2"), False)
+		self.assertEqual(magic_sauce.is_odd("Hello % ^ &"), False)
+		self.assertEqual(magic_sauce.is_odd("\n Hello"), True)
+		self.assertEqual(magic_sauce.is_odd("   "), False)
+		self.assertEqual(magic_sauce.is_odd(None), None)
 	
 	# Test of a count of number of vowels in a customers name
 	def test_count_number_of_vowels(self):
