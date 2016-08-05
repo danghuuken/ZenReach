@@ -60,8 +60,8 @@ class SuitibilityScoreTest(unittest.TestCase):
 		self.assertEqual(magic_sauce.count_consonants(None), None)
 		self.assertEqual(magic_sauce.count_consonants("Wonderful World!@$%$"), 10)
 
-	# Test to check if the products # of letters is divisiable with the customers # of leters
-	# or viceversa 
+	# Test to check the product and customer # of letters share a commonn divider. 
+	# ie 12 and 9 share a commond divider of 3
 	def test_check_if_number_of_letters_are_divisiable(self):
 		self.assertEqual(magic_sauce.is_divisible("abcd", 'ab'), True)
 		self.assertEqual(magic_sauce.is_divisible("45abcd32","34ab56"), True)
@@ -72,6 +72,9 @@ class SuitibilityScoreTest(unittest.TestCase):
 		self.assertEqual(magic_sauce.is_divisible("as!@#df", "a!@#s"), True)
 		self.assertEqual(magic_sauce.is_divisible("as!@#df", None), None)
 		self.assertEqual(magic_sauce.is_divisible(None, "a!@#s"), None)
+		self.assertEqual(magic_sauce.is_divisible("ken danger", "qwert yuiop as"), True)
+		self.assertEqual(magic_sauce.is_divisible("", ""), False)
+		self.assertEqual(magic_sauce.is_divisible(" ", "qwert yuiop as"), False)
 
 
 	# Test to see if the length of customers name is the same as the products name
@@ -143,6 +146,7 @@ class SuitibilityScoreTest(unittest.TestCase):
 		self.assertEqual(magic_sauce.is_letter(')'), False)
 		self.assertEqual(magic_sauce.is_letter('!'), False)
 		self.assertEqual(magic_sauce.is_letter(None), None)
+
 
 
 if __name__ == '__main__':
