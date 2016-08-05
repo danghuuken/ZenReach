@@ -20,18 +20,72 @@ def get_customers(input_data):
 def get_products(input_data):
 	return [x.strip() for x in input_data[input_data.find(";") + 1 :].split(',')]
 
-def character_count(string):
-	return len(string.strip().replace(" ", "")) if not string == None else None
+def letter_count(string):
+	if string == None:
+		return None
+
+	count = 0 
+
+	for c in string:
+		if is_letter(c):
+			count += 1
+	
+	return count
 
 def is_even(string):
 	# we want to not the output since when modding by 2, 0 is even and 1 is odd but 
 	# when converting to a boolean, 0 is false and 1 is true.
-	return not bool(character_count(string) % 2) if not string == None else None
+	return not bool(letter_count(string) % 2) if not string == None else None
 
 # Might not be used but could be useful when specifically looking for odd
 def is_odd(string):
 
-	return bool(character_count(string) % 2) if not string == None else None
+	return bool(letter_count(string) % 2) if not string == None else None
+
+# Loops through a string and does a character comparison to see if the caracter is one
+# of the vowels
+def count_vowels(string):
+	if string == None:
+		return None
+
+	count = 0
+
+	for c in string:
+		if c in "AEIOUaeiou":
+			count += 1
+
+	return count
+
+def count_consonants(string):
+	if string == None:
+		return None
+
+	count = 0
+	for c in string:
+		if not c in "AEIOUaeiou":
+			if is_letter(c):
+				count += 1
+
+	return count
+
+# fucntion to determine if a character is a letter or not. The function only takes one letter
+# so if another letter is given, then itll return false
+def is_letter(c):
+
+	if c == None:
+		return None
+
+	if len(c) > 1:
+		return False
+	decimal_value = ord(c.lower())
+	if 97 <= decimal_value <= 122:
+		return True
+
+	return False
+
+def is_divisible(customer, product):
+	if customer == None or product == None:
+		return None
 
 
 if __name__ == '__main__':
