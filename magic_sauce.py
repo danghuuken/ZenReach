@@ -83,9 +83,44 @@ def is_letter(c):
 
 	return False
 
+# Takes two words, and counts the letters in each string. then from that number count, we check
+# if the numers are divisible of each other. 
 def is_divisible(customer, product):
 	if customer == None or product == None:
 		return None
+
+	if letter_count(customer) % letter_count(product) == 0 or letter_count(product) % letter_count(customer) == 0:
+		return True
+
+	return False
+# Takes two strings, counts the number of letters within the string and then checks to see
+# if they have the same amount of letters
+def is_same_length(customer, product):
+	if customer == None or product == None:
+		return None
+
+	if letter_count(customer) == letter_count(product):
+		return True
+
+	return False
+
+def is_both_even(customer, product):
+	if customer == None or product == None:
+		return None
+
+	if is_even(customer) and is_even(product):
+		return True
+
+	return False
+
+def is_both_odd(customer, product):
+	if customer == None or product == None:
+		return None
+
+	if is_odd(customer) and is_odd(product):
+		return True
+
+	return False
 
 
 if __name__ == '__main__':
