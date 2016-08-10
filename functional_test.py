@@ -17,8 +17,10 @@ class HighestSuitibilityScoreTest(unittest.TestCase):
 
 		#loop through the amount of test cases there are 
 		for test_case in magic_sauce.seperate_test_cases(self.test_input_1):
-
-			print("{0:.2f}".format(magic_sauce.eval_test(test_case)))
+			evaluation = magic_sauce.eval_test(test_case)
+			print("Overall Score is: {0:.2f}".format(evaluation[0]))
+			print("Here is the list of top scores: ")
+			print(evaluation[1])
 
 		self.fail('Finish functional test')
 
@@ -35,6 +37,7 @@ class HighestSuitibilityScoreTest(unittest.TestCase):
 		products = magic_sauce.get_products(file_data)
 
 		highest_score = 0
+		highest_product_name = ""
 
 		#Pass in file string into single SS calculator
 		for customer in customers:
@@ -43,9 +46,21 @@ class HighestSuitibilityScoreTest(unittest.TestCase):
 
 				if score > highest_score: 
 					highest_score = score
+					highest_product_name = product
 
 		# return the highest score
-		print(highest_score)
+		print(str(highest_score) + " " + product)
+
+	def test_best_customer_per_product(self):
+
+		file_data = magic_sauce.read_file(self.simple_customer_input)
+
+		customers = magic_sauce.get_customers(file_data)
+
+		products = magic_sauce.get_products(file_data)
+
+		for product in products:
+			pass
 
 
 

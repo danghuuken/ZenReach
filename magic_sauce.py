@@ -1,4 +1,5 @@
 import math
+from operator import itemgetter
 
 # Open the input file and return the file as one string
 def read_file(input):
@@ -122,6 +123,7 @@ def is_divisible(customer, product):
 				return True
 
 	return False
+
 # Takes two strings, counts the number of letters within the string and then checks to see
 # if they have the same amount of letters
 def is_same_length(customer, product):
@@ -173,24 +175,24 @@ def num_of_common_factors(customer, product):
 	if customer == None or product == None:
 		return None
 
-	count = 0 
+	#count = 0 
 
 	if is_same_length(customer,product):
-		count += 1
+		return True
 
 	if is_both_odd(customer, product):
-		count += 1
+		return True
 
 	if is_divisible(customer, product):
-		count += 1
+		return True
 
 	if  same_vowel_count(customer,product):
-		count += 1
+		return True
 
 	if  same_consonant_count(customer,product):
-		count += 1
+		return True
 
-	return count
+	return False
 
 
 def single_SS_eval(customer, product):
@@ -207,11 +209,39 @@ def single_SS_eval(customer, product):
 		SS = count_consonants(customer)
 
 	number_common = num_of_common_factors(customer,product)
-
-	SS = SS * math.pow(1.5, float(number_common))
+	
+	if number_common:
+		SS = SS * 1.5
 
 	return SS
 
+def is_product_in_final_list(product, final_list):
+
+	if product == None or final_list == None:
+		return None
+
+	for item in final_list:
+		if item[0] == product:
+			return True
+
+	return False
+
+def is_customer_in_final_list(customer, final_list):
+
+	if customer == None or final_list == None:
+		return None
+
+
+	for item in final_list:
+		if item[2] == customer:
+			return True
+
+	return False
+
+# Within the evaluation, we are getting each customers individual score to a product
+# then we are store those scores into a list, which we will then sort by score. That 
+# sorted list will allow us to pick the products with the highest scores to customers. 
+# But we have to make sure that there is only one product and one customer in the final list. 
 def eval_test(test_case):
 	# Get list of customers
 	customers = get_customers(test_case)
@@ -221,15 +251,34 @@ def eval_test(test_case):
 
 	highest_score = 0
 
+	list1 = []
+
 	#Pass in file string into single SS calculator
 	for customer in customers:
 		for product in products:
 			score = single_SS_eval(customer, product)
 
-			if score > highest_score: 
-				highest_score = score
+			list1.append([product, score, customer])
 
-	return highest_score
+	# Sort list based on score
+	sorted_list = sorted(list1,key=itemgetter(1), reverse = True)	
+
+	final_list = []
+	#Get length of list so that we know when to stop adding items into the final list
+	final_list_length = len(products)
+
+	for data in sorted_list:
+		# checking to make sure that the product and customers are not already in the final list
+		if not is_product_in_final_list(data[0], final_list) and not is_customer_in_final_list(data[2], final_list) :
+			final_list.append(data)
+
+		if len(final_list) == final_list_length:
+			break
+	#Adding up all the scores
+	for data in final_list:
+		highest_score += data[1]
+
+	return [highest_score, final_list]
 
 if __name__ == '__main__':
 	pass
